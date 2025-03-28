@@ -27,7 +27,7 @@ jobs:
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
-          name: 'FontsCelestiaRedux-Linux-Installer'
+          name: 'fonts-celestia-redux-Linux-Installer'
           path: |
-            ${{env.BUILD_DIR}}/FontsCelestiaRedux-*-Linux.deb
+            ${{env.BUILD_DIR}}/fonts-celestia-redux-*-Linux.deb
           retention-days: 7
