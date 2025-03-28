@@ -1,0 +1,33 @@
+name: Build
+on:
+  push:
+    branches: [mane]
+  pull_request:
+    branches: [mane]
+  workflow_dispatch:
+    # nothing here
+
+env:
+  BUILD_DIR: '${{github.workspace}}/build'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -B "${{env.BUILD_DIR}}"
+
+      - name: Create Installer
+        working-directory: ${{env.BUILD_DIR}}
+        run: cpack
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'FontsCelestiaRedux-Linux-Installer'
+          path: |
+            ${{env.BUILD_DIR}}/FontsCelestiaRedux-*-Linux.deb
+          retention-days: 7
